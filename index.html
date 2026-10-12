@@ -9,7 +9,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2320201e'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23fafbef' stroke-width='6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter+Tight:wght@400;500&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300..800&display=swap">
 <style>
 /* Layout: panel carbón con grilla de cruces; títulos en serif con tracking negativo, controles en sans, rótulos en mono.
    Anillos como viñetas, filetes crema de baja opacidad, verde solo como señal puntual. Tema único oscuro, por diseño. */
@@ -25,9 +25,10 @@
   --ok: #5fd08a;
   --warn: #f0b44c;
   --crit: #ff6b57;
-  --serif: "Newsreader", "Times New Roman", Georgia, serif;
+  /* Una sola familia: la jerarquía sale de peso, tamaño, tracking y mayúsculas */
+  --serif: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mono: "DM Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --mono: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --cruz: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cpath d='M23 18v10M18 23h10' stroke='%23fafbef' stroke-opacity='.13' stroke-width='1'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
@@ -301,6 +302,39 @@ details[open].mas > summary::before, details[open].res-det > summary::before { c
 .barra-movil .anillo { border-color: var(--sobre-papel); width: 16px; height: 16px; border-width: 4.5px; }
 .barra-movil span.rotulo { display: inline-flex; align-items: center; gap: 8px; }
 @media (max-width: 1060px) { .barra-movil { display: flex; } body { padding-bottom: 96px; } }
+
+/* Jerarquía tipográfica con Inter Tight
+   Display 600–700 con tracking muy cerrado · Subtítulos 300 · Texto 400 · Rótulos 500 en mayúscula espaciada · Cifras tabulares */
+body { font-feature-settings: "ss01", "cv11"; }
+.marca, .nav-links { font-weight: 600; letter-spacing: -0.035em; font-size: 22px; }
+.hero h1 { font-weight: 700; letter-spacing: -0.052em; line-height: .88; }
+.cifras { font-weight: 300; letter-spacing: -0.045em; }
+.cifras .num { font-weight: 600; }
+.hero-bajo p { font-weight: 400; letter-spacing: -0.025em; }
+.seccion h2, #t-presupuesto { font-weight: 650 !important; letter-spacing: -0.055em !important; }
+.proyecto-cab h3 { font-weight: 600; letter-spacing: -0.04em; }
+.buscar { font-weight: 300; letter-spacing: -0.04em; }
+.chips button { font-weight: 400; letter-spacing: -0.035em; }
+.chips button[aria-pressed="true"] { font-weight: 600; }
+.vh-resumen b { font-weight: 500; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.vh-resumen .destacado b { font-weight: 700; letter-spacing: -0.055em; }
+.res-principal .monto { font-weight: 700; letter-spacing: -0.06em; }
+.res-datos b { font-weight: 500; letter-spacing: -0.04em; }
+.factores b, .banda-valores b { font-weight: 600; }
+.res-vacio { font-weight: 300; }
+.doc-cab h3 { font-weight: 700; letter-spacing: -0.05em; }
+.doc-tabla tfoot tr.total td { font-weight: 700; letter-spacing: -0.04em; }
+.barra-movil b { font-weight: 700; letter-spacing: -0.05em; }
+.gigante { font-weight: 700; letter-spacing: -0.06em; }
+.segmentado button b { font-weight: 600; letter-spacing: -0.02em; }
+.cat-item b, .linea-nombre b { font-weight: 600; letter-spacing: -0.02em; }
+.rotulo, .etiqueta, .segmentado button span, .vh-resumen span, .leyenda, .fuente, .cat-horas, .agregar, .cant, .boton-texto,
+details.mas > summary, .res-det > summary, .res-principal .sub, .banda-valores span, .factores span, .res-datos span, .ref-cab,
+.pres-form .campo label, .boton, .doc-meta, .doc-partes span, .doc-tabla th, .doc-cond h4, .doc-pie, .cinta-texto {
+  font-weight: 500; letter-spacing: .07em;
+}
+.cat-horas, .linea-horas, .valor-input, .cant input, .doc-tabla td:last-child, .desglose td:last-child { font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.segmentado button span, .fuente { font-size: 10px; }
 
 @media print {
   @page { margin: 14mm; }
