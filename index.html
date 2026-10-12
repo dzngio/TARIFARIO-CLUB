@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tarifario de Diseño AR</title>
+<meta name="description" content="Calculá cuánto vale tu trabajo de diseño gráfico en Argentina, con horas del tarifario ADG Córdoba y coeficientes por cliente, plazo y derechos.">
+<meta name="theme-color" content="#20201e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2320201e'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23fafbef' stroke-width='6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter+Tight:wght@400;500&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: panel carbón con grilla de cruces; títulos en serif con tracking negativo, controles en sans, rótulos en mono.
+   Anillos como viñetas, filetes crema de baja opacidad, verde solo como señal puntual. Tema único oscuro, por diseño. */
+:root {
+  --fondo: #20201e;
+  --hundido: #191917;
+  --tinta: #fafbef;
+  --gris: #a2a399;
+  --filete: #44443f;
+  --acento: #1fb356;
+  --papel: #fafbef;
+  --sobre-papel: #20201e;
+  --ok: #5fd08a;
+  --warn: #f0b44c;
+  --crit: #ff6b57;
+  --serif: "Newsreader", "Times New Roman", Georgia, serif;
+  --sans: "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --cruz: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='46' height='46'%3E%3Cpath d='M23 18v10M18 23h10' stroke='%23fafbef' stroke-opacity='.13' stroke-width='1'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font: 400 15px/1.45 var(--sans);
+  padding-inline: 16px;
+  padding-block: 0 24px;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; margin: 0; text-wrap: balance; }
+button, input, select { font: inherit; color: inherit; }
+a { color: inherit; }
+::selection { background: var(--acento); color: var(--fondo); }
+:focus-visible { outline: 1px solid var(--tinta); outline-offset: 3px; }
+.num { font-variant-numeric: tabular-nums; }
+.rotulo { font: 400 12px/1.25 var(--mono); letter-spacing: .01em; text-transform: uppercase; }
+.anillo { display: inline-block; width: 22px; height: 22px; border-radius: 50%; border: 6.5px solid var(--tinta); flex: none; }
+.wrap { max-width: 1400px; margin-inline: auto; }
+
+/* Navegación */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding-block: 14px; background: var(--fondo); border-bottom: 1px solid var(--filete); margin-inline: -16px; padding-inline: 16px; }
+.marca { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 500 24px/1 var(--serif); letter-spacing: -0.04em; }
+.nav-links { display: flex; align-items: center; gap: 22px; font: 500 24px/1 var(--serif); letter-spacing: -0.04em; }
+.nav-links a { text-decoration: none; color: var(--gris); }
+.nav-links a:hover, .nav-links a[aria-current] { color: var(--tinta); }
+.nav-links .anillo { width: 18px; height: 18px; border-width: 5px; }
+@media (max-width: 900px) { .nav-links a { display: none; } }
+
+/* Hero */
+.hero { padding-block: clamp(40px, 7vw, 96px) clamp(32px, 5vw, 64px); display: grid; gap: clamp(28px, 4vw, 56px); }
+.hero-top { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 32px; }
+.hero h1 { font-size: clamp(54px, 10.5vw, 168px); line-height: .9; letter-spacing: -0.055em; max-width: 11ch; }
+.cifras { font: 500 clamp(28px, 3.2vw, 48px)/1.04 var(--serif); letter-spacing: -0.04em; text-align: right; padding-bottom: .4em; }
+.cifras div { white-space: nowrap; }
+.cifras .num { font-variant-numeric: lining-nums tabular-nums; }
+@media (max-width: 860px) { .hero-top { grid-template-columns: minmax(0, 1fr); } .cifras { text-align: left; padding-bottom: 0; } }
+.hero-bajo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.hero-bajo p { margin: 0; font: 500 clamp(20px, 2vw, 26px)/1.15 var(--serif); letter-spacing: -0.03em; max-width: 26ch; }
+.hero-bajo .rotulo { color: var(--gris); display: block; margin-bottom: 6px; }
+.hero-bajo a { font: 500 15px var(--sans); text-underline-offset: 3px; }
+@media (max-width: 760px) { .hero-bajo { grid-template-columns: minmax(0, 1fr); } }
+
+/* Grilla principal */
+.grilla { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 40px; align-items: start; border-top: 1px solid var(--filete); }
+@media (max-width: 1060px) { .grilla { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+.columna { min-width: 0; }
+
+.seccion { padding-block: 36px 40px; border-bottom: 1px solid var(--filete); display: grid; gap: 24px; min-width: 0; scroll-margin-top: 64px; }
+.seccion-cab { display: grid; gap: 10px; }
+.seccion-cab .rotulo { display: flex; align-items: center; gap: 10px; color: var(--gris); }
+.seccion-cab .rotulo .anillo { width: 14px; height: 14px; border-width: 4px; }
+.seccion h2 { font-size: clamp(36px, 4.6vw, 64px); line-height: .95; letter-spacing: -0.045em; }
+.seccion-cab p { margin: 0; color: var(--gris); max-width: 60ch; }
+
+/* Selectores */
+.segmentado { display: flex; flex-wrap: wrap; gap: 6px; }
+.segmentado button { border: 1px solid var(--filete); background: transparent; border-radius: 999px; padding: 8px 16px; cursor: pointer; display: inline-flex; align-items: baseline; gap: 10px; transition: background .15s, color .15s, border-color .15s; }
+.segmentado button b { font: 500 15px/1.2 var(--sans); }
+.segmentado button span { font: 400 11px/1.2 var(--mono); color: var(--gris); text-transform: uppercase; }
+.segmentado button:hover { border-color: var(--tinta); }
+.segmentado button[aria-pressed="true"] { background: var(--papel); color: var(--sobre-papel); border-color: var(--papel); }
+.segmentado button[aria-pressed="true"] span { color: var(--sobre-papel); opacity: .65; }
+
+.bloque { display: grid; gap: 10px; }
+.etiqueta { font: 400 12px/1.25 var(--mono); text-transform: uppercase; color: var(--gris); }
+
+/* Sliders */
+.sliders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 36px; }
+@media (max-width: 640px) { .sliders { grid-template-columns: minmax(0, 1fr); } }
+.campo { display: grid; gap: 8px; min-width: 0; }
+.campo-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.campo label { font-size: 15px; }
+.campo small, .ayuda { color: var(--gris); font-size: 13px; line-height: 1.4; }
+.valor-input { width: 8.5em; text-align: right; border: 0; border-bottom: 1px solid var(--filete); background: transparent; padding: 2px 0; font: 400 14px var(--mono); }
+.valor-input:focus { border-bottom-color: var(--tinta); outline: none; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 22px; background: transparent; margin: 0; cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--tinta); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--fondo); border: 5px solid var(--tinta); margin-top: -8.5px; }
+input[type=range]::-moz-range-track { height: 1px; background: var(--tinta); }
+input[type=range]::-moz-range-thumb { width: 8px; height: 8px; border-radius: 50%; background: var(--fondo); border: 5px solid var(--tinta); }
+.fila-dolar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.boton-texto { background: none; border: 0; padding: 0; cursor: pointer; font: 400 12px var(--mono); text-transform: uppercase; text-decoration: underline; text-underline-offset: 3px; color: var(--tinta); }
+
+/* Valor hora */
+.vh-resumen { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; border-top: 1px solid var(--filete); padding-top: 18px; }
+@media (max-width: 600px) { .vh-resumen { grid-template-columns: 1fr 1fr; } .vh-resumen .destacado { grid-column: 1 / -1; } }
+.vh-resumen div { display: grid; gap: 4px; align-content: start; }
+.vh-resumen span { font: 400 12px var(--mono); color: var(--gris); text-transform: uppercase; }
+.vh-resumen b { font: 500 28px/1 var(--serif); letter-spacing: -0.04em; }
+.vh-resumen .destacado b { font-size: clamp(40px, 5vw, 56px); }
+.composicion { display: grid; gap: 10px; }
+.barra-comp { display: flex; height: 6px; background: var(--filete); }
+.barra-comp i { display: block; height: 100%; }
+.leyenda { display: flex; flex-wrap: wrap; gap: 4px 16px; font: 400 11px var(--mono); color: var(--gris); text-transform: uppercase; }
+.leyenda span { display: inline-flex; align-items: center; gap: 6px; }
+.leyenda i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+/* Catálogo */
+.buscar { width: 100%; border: 0; border-bottom: 1px solid var(--tinta); background: transparent; padding: 6px 0 10px; font: 500 clamp(24px, 3vw, 34px)/1.1 var(--serif); letter-spacing: -0.035em; }
+.buscar::placeholder { color: var(--gris); opacity: .55; }
+.buscar:focus { outline: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.chips button { border: 0; background: none; padding: 0; cursor: pointer; font: 500 24px/1.15 var(--serif); letter-spacing: -0.04em; color: var(--gris); }
+.chips button sup { font: 400 10px var(--mono); margin-left: 3px; letter-spacing: 0; vertical-align: 12px; }
+.chips button:hover, .chips button[aria-pressed="true"] { color: var(--tinta); }
+.chips button[aria-pressed="true"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.catalogo { border-top: 1px solid var(--filete); max-height: 420px; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--filete) transparent; scrollbar-width: thin; -webkit-mask-image: linear-gradient(#000 calc(100% - 48px), transparent); mask-image: linear-gradient(#000 calc(100% - 48px), transparent); padding-bottom: 32px; }
+.cat-item { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--filete); }
+.cat-item div { min-width: 0; }
+.cat-item b { font: 500 16px var(--sans); }
+.cat-item small { display: block; color: var(--gris); font-size: 13px; }
+.fuente { display: inline-block; vertical-align: 2px; margin-left: 6px; font: 400 10px/1 var(--mono); padding: 3px 6px; border-radius: 999px; border: 1px solid var(--filete); color: var(--gris); text-transform: uppercase; }
+.fuente.adg { border-color: var(--acento); color: var(--acento); }
+.cat-horas { font: 400 12px var(--mono); color: var(--gris); white-space: nowrap; }
+@media (max-width: 520px) { .cat-horas { display: none; } .cat-item { grid-template-columns: minmax(0, 1fr) auto; } }
+.agregar { border: 1px solid var(--tinta); background: none; border-radius: 999px; padding: 6px 12px; cursor: pointer; font: 400 11px var(--mono); text-transform: uppercase; white-space: nowrap; }
+.agregar:hover { background: var(--papel); color: var(--sobre-papel); }
+
+/* Proyecto */
+.proyecto { display: grid; }
+.proyecto-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--tinta); }
+.proyecto-cab h3 { font-size: 30px; letter-spacing: -0.04em; }
+.vacio { padding: 20px 0; color: var(--gris); }
+.linea { display: grid; grid-template-columns: minmax(0, 1fr) 84px auto 64px auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--filete); }
+@media (max-width: 760px) { .linea { grid-template-columns: minmax(0, 1fr) 84px; } .linea .comp, .linea .extras { grid-column: 1 / -1; } }
+.linea-nombre b { font: 500 16px var(--sans); display: block; }
+.linea-nombre small { color: var(--gris); font-size: 13px; }
+.cant { display: grid; gap: 2px; font: 400 10.5px var(--mono); color: var(--gris); text-transform: uppercase; }
+.cant input { width: 100%; border: 0; border-bottom: 1px solid var(--filete); background: transparent; padding: 3px 0; font: 400 15px var(--mono); color: var(--tinta); }
+.comp-seg { display: inline-flex; gap: 4px; }
+.comp-seg button { border: 1px solid var(--filete); background: none; border-radius: 999px; padding: 5px 11px; font-size: 13px; cursor: pointer; color: var(--gris); }
+.comp-seg button:hover { color: var(--tinta); }
+.comp-seg button[aria-pressed="true"] { background: var(--papel); color: var(--sobre-papel); border-color: var(--papel); }
+.linea-horas { font: 400 13px var(--mono); text-align: right; white-space: nowrap; }
+.quitar { border: 0; background: none; color: var(--gris); cursor: pointer; font-size: 22px; line-height: 1; padding: 4px; }
+.quitar:hover { color: var(--crit); }
+.extras { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--gris); }
+.extras label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+
+/* Condiciones */
+.selects { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 640px) { .selects { grid-template-columns: minmax(0, 1fr); } }
+select { width: 100%; border: 0; border-bottom: 1px solid var(--filete); background: transparent; padding: 6px 0; font-size: 14px; }
+select option { background: var(--fondo); color: var(--tinta); }
+.check { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; }
+input[type=checkbox] { accent-color: var(--tinta); width: 15px; height: 15px; }
+.dos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 36px; }
+@media (max-width: 640px) { .dos { grid-template-columns: minmax(0, 1fr); } }
+
+/* Plegables */
+details.mas { border-top: 1px solid var(--filete); padding-top: 14px; }
+details.mas > summary, .res-det > summary { cursor: pointer; list-style: none; font: 400 12px/1.4 var(--mono); text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+details.mas > summary::-webkit-details-marker, .res-det > summary::-webkit-details-marker { display: none; }
+details.mas > summary::before, .res-det > summary::before { content: "+"; font-size: 15px; width: 12px; }
+details[open].mas > summary::before, details[open].res-det > summary::before { content: "−"; }
+.mas-cuerpo { display: grid; gap: 24px; padding-top: 20px; }
+
+/* Resultado */
+.resultado { position: sticky; top: 64px; padding-top: 36px; min-width: 0; }
+@media (max-width: 1060px) { .resultado { position: static; padding-top: 32px; } }
+.res-caja { border: 1px solid var(--tinta); }
+.res-cab { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--filete); color: var(--gris); }
+.res-principal { padding: 22px 16px 18px; display: grid; gap: 8px; }
+.res-principal .monto { font: 500 clamp(52px, 6vw, 76px)/.9 var(--serif); letter-spacing: -0.055em; font-variant-numeric: tabular-nums; }
+.res-principal .sub { font: 400 12px var(--mono); color: var(--gris); text-transform: uppercase; }
+.banda { padding: 6px 16px 18px; display: grid; gap: 10px; border-bottom: 1px solid var(--filete); }
+.banda-barra { position: relative; height: 14px; background: repeating-linear-gradient(90deg, var(--gris) 0 1px, transparent 1px 5%); border-bottom: 1px solid var(--tinta); }
+.banda-barra i { display: none; }
+.banda-marca { position: absolute; bottom: -8px; width: 16px; height: 16px; border-radius: 50%; background: var(--fondo); border: 5px solid var(--acento); transform: translateX(-50%); }
+.banda-valores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; padding-top: 4px; }
+.banda-valores div { display: grid; gap: 2px; min-width: 0; }
+.banda-valores div:nth-child(2) { text-align: center; }
+.banda-valores div:nth-child(3) { text-align: right; }
+.banda-valores span { font: 400 11px var(--mono); color: var(--gris); text-transform: uppercase; }
+.banda-valores b { font: 500 15px var(--sans); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.factores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--filete); }
+.factores span { padding: 10px 16px; display: grid; gap: 2px; font: 400 11px var(--mono); color: var(--gris); text-transform: uppercase; }
+.factores span + span { border-left: 1px solid var(--filete); }
+.factores b { font: 500 16px var(--sans); color: var(--tinta); text-transform: none; }
+.res-datos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 1px solid var(--filete); }
+.res-datos div { padding: 12px 16px; display: grid; gap: 2px; }
+.res-datos div + div { border-left: 1px solid var(--filete); }
+.res-datos span { font: 400 11px var(--mono); color: var(--gris); text-transform: uppercase; }
+.res-datos b { font: 500 26px/1.1 var(--serif); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.res-det > summary { padding: 12px 16px; }
+.res-det[open] > summary { border-bottom: 1px solid var(--filete); }
+.desglose { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.desglose td { padding: 9px 16px; border-bottom: 1px solid var(--filete); }
+.desglose td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.desglose td small { color: var(--gris); display: block; font-size: 12px; }
+.desglose tr.total td { font-weight: 500; border-bottom: 0; }
+#res-ref:not(:empty), #res-alertas:not(:empty) { border-top: 1px solid var(--filete); }
+.referencia { padding: 12px 16px; display: grid; gap: 4px; }
+.ref-cab { display: flex; justify-content: space-between; gap: 10px; font: 400 12px var(--mono); text-transform: uppercase; }
+.referencia small { color: var(--gris); font-size: 13px; line-height: 1.45; }
+.alerta { font-size: 13px; padding: 10px 16px 10px 38px; position: relative; }
+.alerta + .alerta { border-top: 1px solid var(--filete); }
+.alerta::before { content: ""; position: absolute; left: 16px; top: 13px; width: 12px; height: 12px; border-radius: 50%; border: 3.5px solid; box-sizing: border-box; }
+.alerta.critico::before { border-color: var(--crit); }
+.alerta.aviso::before { border-color: var(--warn); }
+.alerta.info::before { border-color: var(--gris); }
+.res-vacio { padding: 26px 16px; color: var(--gris); font: 500 22px/1.2 var(--serif); letter-spacing: -0.03em; }
+
+/* Presupuesto */
+.presupuesto { padding-block: 36px 44px; border-bottom: 1px solid var(--filete); scroll-margin-top: 64px; }
+.pres-grilla { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 40px; align-items: start; }
+@media (max-width: 900px) { .pres-grilla { grid-template-columns: minmax(0, 1fr); } }
+.pres-form { display: grid; gap: 16px; }
+.pres-form .campo input, .pres-form .campo select { width: 100%; border: 0; border-bottom: 1px solid var(--filete); background: transparent; padding: 6px 0; font-size: 15px; }
+.pres-form .campo input:focus { border-bottom-color: var(--tinta); outline: none; }
+.pres-form .campo label { font: 400 12px var(--mono); text-transform: uppercase; color: var(--gris); }
+.acciones { display: flex; gap: 8px; flex-wrap: wrap; }
+.boton { border: 1px solid var(--papel); background: var(--papel); color: var(--sobre-papel); border-radius: 999px; padding: 10px 18px; cursor: pointer; font: 400 12px var(--mono); text-transform: uppercase; }
+.boton.sec { background: none; color: var(--tinta); }
+.boton:hover { background: var(--acento); border-color: var(--acento); color: var(--fondo); }
+.estado { font-size: 13px; color: var(--ok); min-height: 1.2em; }
+
+.doc { background: #fafbef; color: #20201e; padding: clamp(20px, 4vw, 44px); display: grid; gap: 24px; font: 13.5px/1.5 var(--sans); min-width: 0; }
+.doc-cab { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; align-items: flex-start; border-bottom: 1px solid #20201e; padding-bottom: 16px; }
+.doc-cab h3 { font: 500 34px/1 var(--serif); letter-spacing: -0.045em; }
+.doc-meta { font: 400 11px/1.7 var(--mono); color: #5d5e56; text-align: right; text-transform: uppercase; }
+.doc-partes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 520px) { .doc-partes { grid-template-columns: minmax(0, 1fr); } .doc-meta { text-align: left; } }
+.doc-partes span { display: block; font: 400 11px var(--mono); text-transform: uppercase; color: #5d5e56; }
+.doc-tabla-wrap { overflow-x: auto; }
+.doc-tabla { width: 100%; border-collapse: collapse; }
+.doc-tabla th { font: 400 11px var(--mono); text-transform: uppercase; color: #5d5e56; text-align: left; padding: 6px 0; border-bottom: 1px solid #20201e; }
+.doc-tabla td { padding: 10px 0; border-bottom: 1px solid #d6d7cc; vertical-align: top; }
+.doc-tabla td small { color: #5d5e56; display: block; font-size: 12px; }
+.doc-tabla th:nth-child(2), .doc-tabla td:nth-child(2) { text-align: center; width: 96px; white-space: nowrap; padding-inline: 8px; }
+.doc-tabla th:last-child, .doc-tabla td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
+.doc-tabla tfoot td { border-bottom: 0; padding: 5px 0; }
+.doc-tabla tfoot tr.total td { font: 500 24px/1.2 var(--serif); letter-spacing: -0.03em; border-top: 1px solid #20201e; padding-top: 12px; }
+.doc-cond h4 { font: 400 11px var(--mono); text-transform: uppercase; color: #5d5e56; margin: 0 0 8px; }
+.doc-cond ul { margin: 0; padding-left: 16px; display: grid; gap: 4px; }
+.doc-pie { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font: 400 11px var(--mono); color: #5d5e56; border-top: 1px solid #d6d7cc; padding-top: 12px; text-transform: uppercase; }
+
+/* Pie */
+.metodo-sec { padding-block: 28px; border-bottom: 1px solid var(--filete); }
+.metodo { color: var(--gris); display: grid; gap: 10px; max-width: 80ch; padding-top: 16px; }
+.metodo p { margin: 0; }
+.metodo b { color: var(--tinta); font-weight: 500; }
+.metodo code { font: 400 13px var(--mono); color: var(--tinta); }
+.pie-datos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; padding-block: 40px 28px; }
+@media (max-width: 760px) { .pie-datos { grid-template-columns: minmax(0, 1fr); } }
+.pie-datos .rotulo { color: var(--gris); display: block; margin-bottom: 6px; }
+.pie-datos a, .pie-datos span:not(.rotulo) { font-size: 15px; display: block; text-underline-offset: 3px; }
+.gigante { display: flex; align-items: center; gap: .08em; font: 500 clamp(64px, 17.5vw, 270px)/1 var(--serif); letter-spacing: -0.065em; padding-block: 0 12px; white-space: nowrap; overflow: hidden; }
+.gigante .anillo { width: .74em; height: .74em; border-width: .2em; margin-right: .04em; }
+.cinta { border-top: 1px solid var(--filete); overflow: hidden; padding-block: 10px; display: flex; align-items: center; gap: 12px; }
+.cinta .anillo { width: 16px; height: 16px; border-width: 4.5px; }
+.cinta-pista { overflow: hidden; flex: 1; min-width: 0; }
+.cinta-texto { display: inline-flex; gap: 0; white-space: nowrap; font: 400 12px var(--mono); text-transform: uppercase; }
+.cinta-texto span { padding-right: 3em; }
+@media (prefers-reduced-motion: no-preference) {
+  .cinta-texto { animation: cinta 40s linear infinite; }
+  @keyframes cinta { to { transform: translateX(-50%); } }
+  .banda-marca { transition: left .25s ease; }
+}
+
+.barra-movil { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: var(--papel); color: var(--sobre-papel); text-decoration: none; justify-content: space-between; align-items: center; gap: 12px; }
+.barra-movil b { font: 500 26px/1 var(--serif); letter-spacing: -0.04em; }
+.barra-movil .anillo { border-color: var(--sobre-papel); width: 16px; height: 16px; border-width: 4.5px; }
+.barra-movil span.rotulo { display: inline-flex; align-items: center; gap: 8px; }
+@media (max-width: 1060px) { .barra-movil { display: flex; } body { padding-bottom: 96px; } }
+
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; padding: 0; }
+  body * { visibility: hidden; }
+  #doc, #doc * { visibility: visible; }
+  #doc { position: absolute; left: 0; top: 0; width: 100%; padding: 0; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav" aria-label="Principal">
+    <a class="marca" href="#top"><span class="anillo"></span>Tarifario</a>
+    <div class="nav-links">
+      <a href="#s-valor">Valor hora,</a>
+      <a href="#s-servicios">Servicios,</a>
+      <a href="#s-condiciones">Cliente,</a>
+      <a href="#s-presupuesto">Presupuesto</a>
+      <span class="anillo"></span>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-top">
+      <h1>¿Cuánto vale tu trabajo?</h1>
+      <div class="cifras" aria-label="136 piezas, 10 disciplinas, 1 precio justo">
+        <div><span class="num" id="n-piezas">136</span> piezas,</div>
+        <div><span class="num" id="n-disciplinas">10</span> disciplinas,</div>
+        <div><span class="num">1</span> precio justo.</div>
+      </div>
+    </div>
+    <div class="hero-bajo">
+      <div><span class="rotulo">Para quién</span><p>Diseñadoras y diseñadores gráficos de Argentina.</p></div>
+      <div><span class="rotulo">Cómo</span><p>Horas reales por pieza, ajustadas por cliente, plazo y derechos.</p></div>
+      <div><span class="rotulo">Edición</span><p id="version"></p><a href="#s-servicios">Empezar a cotizar</a></div>
+    </div>
+  </header>
+
+  <div class="grilla">
+    <div class="columna">
+
+      <section class="seccion" id="s-valor" aria-labelledby="t-valor">
+        <div class="seccion-cab">
+          <span class="rotulo"><span class="anillo"></span>01 · Valor hora</span>
+          <h2 id="t-valor">Tu valor hora</h2>
+          <p>Usá el valor de referencia de ADG o calculalo con tus costos.</p>
+        </div>
+        <div class="segmentado" id="modo" role="group" aria-label="Forma de calcular el valor hora"></div>
+        <div class="bloque"><span class="etiqueta">Experiencia</span><div class="segmentado" id="nivel" role="group" aria-label="Nivel de experiencia"></div></div>
+        <div id="bloque-costos" class="bloque" style="gap:24px">
+          <div class="sliders" id="sliders"></div>
+          <details class="mas" id="det-perfil">
+            <summary>Ajustes avanzados: equipos, dólar, vacaciones y margen</summary>
+            <div class="mas-cuerpo">
+              <div class="sliders" id="sliders-av"></div>
+              <div class="composicion" id="composicion"></div>
+            </div>
+          </details>
+        </div>
+        <div class="vh-resumen" id="vh-resumen"></div>
+      </section>
+
+      <section class="seccion" id="s-servicios" aria-labelledby="t-servicios">
+        <div class="seccion-cab">
+          <span class="rotulo"><span class="anillo"></span>02 · Servicios</span>
+          <h2 id="t-servicios">¿Qué vas a hacer?</h2>
+          <p>Cada entregable incluye 2 rondas de cambios.</p>
+        </div>
+        <input class="buscar" id="buscar" type="search" placeholder="Buscar: logo, etiqueta, landing…" aria-label="Buscar servicio">
+        <div class="chips" id="categorias" role="group" aria-label="Disciplinas"></div>
+        <div class="catalogo" id="catalogo"></div>
+        <div class="proyecto">
+          <div class="proyecto-cab"><h3>Tu proyecto</h3><button class="boton-texto" id="vaciar" type="button">Vaciar</button></div>
+          <div id="lineas"></div>
+        </div>
+      </section>
+
+      <section class="seccion" id="s-condiciones" aria-labelledby="t-condiciones">
+        <div class="seccion-cab">
+          <span class="rotulo"><span class="anillo"></span>03 · Cliente y plazo</span>
+          <h2 id="t-condiciones">¿Para quién y para cuándo?</h2>
+        </div>
+        <div class="bloque"><span class="etiqueta">Cliente</span><div class="segmentado" id="cliente" role="group" aria-label="Tipo de cliente"></div></div>
+        <div class="bloque"><span class="etiqueta">Plazo</span><div class="segmentado" id="plazo" role="group" aria-label="Plazo de entrega"></div></div>
+        <details class="mas" id="det-cond">
+          <summary>Más condiciones: derechos, impuestos y descuentos</summary>
+          <div class="mas-cuerpo">
+            <label class="check"><input type="checkbox" id="finde"> Requiere trabajar fines de semana o feriados</label>
+            <div class="bloque">
+              <span class="etiqueta">Cesión de derechos de uso</span>
+              <div class="selects">
+                <select id="alcance" aria-label="Alcance"></select>
+                <select id="duracion" aria-label="Duración"></select>
+                <select id="exclusividad" aria-label="Exclusividad"></select>
+              </div>
+              <label class="check"><input type="checkbox" id="atl"> Uso en medios masivos (TV, vía pública nacional)</label>
+            </div>
+            <div class="bloque">
+              <span class="etiqueta">Condición fiscal</span>
+              <div class="segmentado" id="fiscal" role="group" aria-label="Condición fiscal"></div>
+            </div>
+            <div class="dos" id="sliders-cond"></div>
+          </div>
+        </details>
+      </section>
+
+    </div>
+
+    <aside class="resultado" id="resultado">
+      <div class="res-caja">
+        <div class="res-cab rotulo"><span>Precio recomendado</span><span class="anillo" style="width:14px;height:14px;border-width:4px"></span></div>
+        <div id="res-cuerpo" aria-live="polite"></div>
+        <details class="res-det" id="det-desglose"><summary>Ver desglose</summary><table class="desglose"><tbody id="desglose"></tbody></table></details>
+        <div id="res-ref"></div>
+        <div id="res-alertas"></div>
+      </div>
+    </aside>
+  </div>
+
+  <section class="presupuesto" id="s-presupuesto" aria-labelledby="t-presupuesto">
+    <div class="pres-grilla">
+      <div class="pres-form">
+        <div class="seccion-cab">
+          <span class="rotulo" style="display:flex;align-items:center;gap:10px;color:var(--gris)"><span class="anillo" style="width:14px;height:14px;border-width:4px"></span>04 · Presupuesto</span>
+          <h2 id="t-presupuesto" style="font-size:clamp(36px,4.6vw,64px);line-height:.95;letter-spacing:-0.045em">Presupuesto para el cliente</h2>
+          <p>Muestra el precio por ítem, sin tus horas ni márgenes.</p>
+        </div>
+        <div class="campo"><label for="p-estudio">Tu nombre o estudio</label><input id="p-estudio" type="text"></div>
+        <div class="campo"><label for="p-cliente">Cliente</label><input id="p-cliente" type="text"></div>
+        <div class="campo"><label for="p-proyecto">Proyecto</label><input id="p-proyecto" type="text"></div>
+        <details class="mas">
+          <summary>Contacto, plazo y pago</summary>
+          <div class="mas-cuerpo">
+            <div class="campo"><label for="p-contacto">Contacto (mail, web o CUIT)</label><input id="p-contacto" type="text"></div>
+            <div class="campo"><label for="p-entrega">Plazo de entrega</label><input id="p-entrega" type="text"></div>
+            <div class="campo"><label for="p-pago">Forma de pago</label>
+              <select id="p-pago">
+                <option value="50/50">50% de anticipo y 50% contra entrega</option>
+                <option value="40/30/30">40% anticipo, 30% en revisión, 30% contra entrega</option>
+                <option value="100">100% por adelantado</option>
+              </select>
+            </div>
+          </div>
+        </details>
+        <div class="acciones">
+          <button class="boton" id="copiar" type="button">Copiar texto</button>
+          <button class="boton sec" id="imprimir" type="button" hidden>Descargar PDF</button>
+        </div>
+        <div class="estado" id="estado" role="status"></div>
+      </div>
+      <article class="doc" id="doc"></article>
+    </div>
+  </section>
+
+  <footer>
+    <details class="mas metodo-sec" style="border-top:0">
+      <summary>¿Cómo se calcula?</summary>
+      <div class="metodo">
+        <p><b>Modo rápido</b>: usa el valor hora de ADG Córdoba según tu experiencia (junior $18.500, semi senior $21.500, senior $25.000), llevado a base PyME.</p>
+        <p><b>Con mis costos</b>: valor hora piso = (ingreso + gastos fijos + monotributo + equipos + software) ÷ horas que podés cobrar. El recomendado suma tu margen y el coeficiente de experiencia, y nunca baja del piso.</p>
+        <p><b>Horas por ítem</b>: las marcadas <b>ADG</b> vienen del tarifario de la Asociación Profesionales del Diseño Gráfico de Córdoba; las marcadas <b>Estimado</b> cubren lo que ADG no incluye.</p>
+        <p><b>Precio</b> = horas × valor hora × cliente × descuento por volumen × urgencia + cesión de derechos + gastos. Se aplica el descuento y se lleva a bruto por IIBB y comisiones. Si sos Responsable Inscripto se suma IVA.</p>
+        <p><b>Banda</b>: el mínimo usa tu valor hora piso y menos complejidad; el alto, más complejidad. Debajo del mínimo trabajás a pérdida.</p>
+        <p>Coeficientes de cliente y experiencia: matriz ARDG. Descuento por volumen: tabla ADG. Cesión de derechos según Ley 11.723. Todo se edita en <code>datos/tarifario.js</code>.</p>
+      </div>
+    </details>
+
+    <div class="pie-datos">
+      <div><span class="rotulo">Fuentes</span><a href="https://www.adg.com.ar/mi-cuenta/tarifario/" target="_blank" rel="noopener">Tarifario ADG Córdoba</a><span>Matriz ARDG Rosario</span></div>
+      <div><span class="rotulo">Aviso</span><span>Herramienta orientativa. No reemplaza el asesoramiento contable.</span></div>
+      <div><span class="rotulo">Actualización</span><span id="actualizado"></span></div>
+    </div>
+
+    <div class="gigante" aria-hidden="true"><span class="anillo"></span>Tarifario</div>
+
+    <div class="cinta" aria-hidden="true">
+      <span class="anillo"></span>
+      <div class="cinta-pista">
+        <div class="cinta-texto">
+          <span>Valor hora + Horas ADG + Coeficientes ARDG + Cliente + Plazo + Derechos de uso + Presupuesto</span>
+          <span>Valor hora + Horas ADG + Coeficientes ARDG + Cliente + Plazo + Derechos de uso + Presupuesto</span>
+        </div>
+      </div>
+      <span class="anillo"></span>
+    </div>
+  </footer>
+</div>
+
+<a class="barra-movil" id="barra-movil" href="#resultado"><span class="rotulo"><span class="anillo"></span>Precio recomendado</span><b id="barra-monto"></b></a>
+
+<script src="datos/tarifario.js"></script>
+<script src="js/motor.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
